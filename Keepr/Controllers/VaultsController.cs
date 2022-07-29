@@ -1,12 +1,18 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Keepr.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Keepr.Controllers
 {
-    public class VaultsController
+
+  [ApiController]
+  [Route("api/[controller]")]
+  public class VaultsController : ControllerBase
+  {
+    private readonly VaultsService _vaultserv;
+
+    public VaultsController(VaultsService vaultserv)
     {
-        
+      _vaultserv = vaultserv;
     }
+  }
 }

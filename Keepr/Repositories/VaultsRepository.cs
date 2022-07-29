@@ -1,12 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Data;
 
 namespace Keepr.Repositories
 {
-    public class VaultsRepository
+  public class VaultsRepository
+  {
+    private readonly IDbConnection _db;
+
+    public VaultsRepository(IDbConnection db)
     {
-        
+      _db = db;
     }
+  }
 }

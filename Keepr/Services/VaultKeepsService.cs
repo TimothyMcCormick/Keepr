@@ -1,12 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Keepr.Repositories;
 
 namespace Keepr.Services
 {
-    public class VaultKeepsService
+  public class VaultKeepsService
+  {
+    private readonly VaultKeepsRepository _vaultkeeprepo;
+
+    public VaultKeepsService(VaultKeepsRepository vaultkeeprepo)
     {
-        
+      _vaultkeeprepo = vaultkeeprepo;
     }
+  }
 }
