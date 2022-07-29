@@ -54,6 +54,20 @@ namespace Keepr.Controllers
       }
     }
 
+    [HttpGet("{id}")]
+    public ActionResult<Keep> Get(int id)
+    {
+      try
+      {
+        Keep keep = _keepserv.Get(id);
+        return Ok(keep);
+      }
+      catch (System.Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+
 
   }
 }
