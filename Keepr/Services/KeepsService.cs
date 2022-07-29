@@ -33,5 +33,23 @@ namespace Keepr.Services
       }
       return found;
     }
+
+    internal Keep Edit(Keep keepData)
+    {
+      Keep original = Get(keepData.Id);
+
+      original.Name = keepData.Name ?? original.Name;
+      original.Description = keepData.Description ?? original.Description;
+      original.Img = keepData.Img ?? original.Img;
+
+      _keeprepo.Edit(original);
+      return original;
+    }
+
+    internal void Delete(int id)
+    {
+      Keep foundKeep = Get(id);
+      _keeprepo.Delete(id);
+    }
   }
 }

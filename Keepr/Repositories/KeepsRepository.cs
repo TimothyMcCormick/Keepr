@@ -48,6 +48,8 @@ namespace Keepr.Repositories
       }).ToList();
     }
 
+
+
     internal Keep Get(int id)
     {
       string sql = @"
@@ -65,6 +67,24 @@ namespace Keepr.Repositories
       }, new { id }).FirstOrDefault();
     }
 
+    internal void Edit(Keep original)
+    {
+      string sql = @"
+      UPDATE keeps
+        SET
+        name = @Name,
+        description = @Description,
+        img = @Img
+      WHERE id = @Id;
+      ";
+      _db.Execute(sql, original);
+    }
+
+    internal void Delete(int id)
+    {
+      string sql = "DELETE FROM keeps WHERE id = @id LIMIT 1";
+      _db.Execute(sql, new { id });
+    }
 
   }
 }
