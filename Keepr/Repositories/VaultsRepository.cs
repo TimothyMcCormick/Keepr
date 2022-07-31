@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using Dapper;
@@ -46,6 +47,32 @@ namespace Keepr.Repositories
         vault.Creator = acct;
         return vault;
       }, new { id }).FirstOrDefault();
+    }
+
+    internal List<Vault> GetVaultsByCreatorId(string creatorId)
+    {
+      string sql = @"
+        SELECT * FROM vaults
+        WHERE creatorId = @creatorId AND isPrivate = false";
+      return _db.Query<Vault>(sql, new { creatorId }).ToList();
+    }
+
+    // internal Vault GetVaultById(int id)
+    // {
+    //   string sql = @"
+    //     SELECT * FROM vaults
+    //     WHERE id = @id";
+    //   return _db.QueryFirstOrDefault<Vault>(sql, new { id });
+    // }
+
+    internal List<Vault> GetAccountVaults(string userId)
+    {
+      string sql = @"
+      SELECT *
+      FROM vaults
+      WHERE creatorId = @userId
+      ";
+      return _db.Query<Vault>(sql, new { userId }).ToList();
     }
 
     internal void Edit(Vault original)

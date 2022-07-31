@@ -35,10 +35,15 @@ namespace Keepr
 
       services.AddScoped<AccountsRepository>();
       services.AddScoped<AccountService>();
+      services.AddScoped<ProfilesRepository>();
+      services.AddScoped<ProfilesService>();
+
       services.AddScoped<KeepsRepository>();
       services.AddScoped<KeepsService>();
+
       services.AddScoped<VaultsRepository>();
       services.AddScoped<VaultsService>();
+
       services.AddScoped<VaultKeepsRepository>();
       services.AddScoped<VaultKeepsService>();
     }
@@ -49,14 +54,14 @@ namespace Keepr
       {
         options.AddPolicy("CorsDevPolicy", builder =>
               {
-            builder
-                  .AllowAnyMethod()
-                  .AllowAnyHeader()
-                  .AllowCredentials()
-                  .WithOrigins(new string[]{
+                builder
+                      .AllowAnyMethod()
+                      .AllowAnyHeader()
+                      .AllowCredentials()
+                      .WithOrigins(new string[]{
                         "http://localhost:8080", "http://localhost:8081"
+                  });
               });
-          });
       });
     }
 

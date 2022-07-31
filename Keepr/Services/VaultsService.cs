@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Keepr.Models;
 using Keepr.Repositories;
 
@@ -25,6 +26,10 @@ namespace Keepr.Services
       {
         throw new Exception("Invalid Id");
       }
+      else if (found.IsPrivate == true)
+      {
+        throw new Exception("You cannot access this vault");
+      }
       return found;
     }
 
@@ -43,6 +48,16 @@ namespace Keepr.Services
     {
       Vault foundVault = Get(id);
       _vaultrepo.Delete(id);
+    }
+
+    internal List<Vault> GetVaultsByCreatorId(string id)
+    {
+      return _vaultrepo.GetVaultsByCreatorId(id);
+    }
+
+    internal List<Vault> GetAccountVaults(string userId)
+    {
+      return _vaultrepo.GetAccountVaults(userId);
     }
   }
 }

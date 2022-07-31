@@ -8,10 +8,14 @@ namespace Keepr.Services
   public class VaultKeepsService
   {
     private readonly VaultKeepsRepository _vaultkeeprepo;
+    private readonly VaultsRepository _vaultrepo;
+    private readonly VaultsService _vaultserv;
 
-    public VaultKeepsService(VaultKeepsRepository vaultkeeprepo)
+    public VaultKeepsService(VaultKeepsRepository vaultkeeprepo, VaultsRepository vaultrepo, VaultsService vaultserv)
     {
       _vaultkeeprepo = vaultkeeprepo;
+      _vaultrepo = vaultrepo;
+      _vaultserv = vaultserv;
     }
 
     internal VaultKeep Create(VaultKeep vaultKeepData)
@@ -21,11 +25,24 @@ namespace Keepr.Services
 
     internal List<VaultKeepViewModel> Get(int id)
     {
-      return _vaultkeeprepo.GetByKeepId(id);
+      Vault vault = _vaultserv.Get(id);
+      List<VaultKeepViewModel> vaultKeeps = _vaultkeeprepo.GetByVaultId(id);
+      if (vault.IsPrivate == true)
+      {
+        throw new Exception("You cannot access this vaults keeps");
+      }
+      return vaultKeeps;
+
     }
+
+    // internal Vault GetVaultById(int id)
+    // {
+    //   return _vaultrepo.GetVaultById(id);
+    // }
 
     internal VaultKeep GetById(int id)
     {
+
       VaultKeep found = _vaultkeeprepo.GetById(id);
       if (found == null)
       {

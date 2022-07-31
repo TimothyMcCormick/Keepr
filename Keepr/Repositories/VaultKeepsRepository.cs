@@ -34,7 +34,7 @@ namespace Keepr.Repositories
       return _db.QueryFirstOrDefault<VaultKeep>(sql, new { id });
     }
 
-    internal List<VaultKeepViewModel> GetByKeepId(int id)
+    internal List<VaultKeepViewModel> GetByVaultId(int id)
     {
       string sql = @"
       SELECT

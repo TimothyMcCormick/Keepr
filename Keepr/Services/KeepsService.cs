@@ -37,7 +37,10 @@ namespace Keepr.Services
     internal Keep Edit(Keep keepData)
     {
       Keep original = Get(keepData.Id);
-
+      if (original.CreatorId != keepData.CreatorId)
+      {
+        throw new Exception("Invalid Access");
+      }
       original.Name = keepData.Name ?? original.Name;
       original.Description = keepData.Description ?? original.Description;
       original.Img = keepData.Img ?? original.Img;
@@ -46,10 +49,19 @@ namespace Keepr.Services
       return original;
     }
 
-    internal void Delete(int id)
+    internal void Delete(int id, string userId)
     {
       Keep foundKeep = Get(id);
+      if (foundKeep.CreatorId != userId)
+      {
+        throw new Exception("Invalid Access");
+      }
       _keeprepo.Delete(id);
+    }
+
+    internal List<Keep> GetKeepsByCreatorId(string id)
+    {
+      return _keeprepo.GetKeepsByCreatorId(id);
     }
   }
 }
