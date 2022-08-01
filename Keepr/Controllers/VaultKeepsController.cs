@@ -38,11 +38,12 @@ namespace Keepr.Controllers
     }
 
     [HttpDelete("{id}")]
-    [Authorize]
-    public ActionResult<string> Delete(int id)
+
+    public async Task<ActionResult<string>> Delete(int id)
     {
       try
       {
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
         _vaultkeepserv.Delete(id);
         return Ok("Deleted");
       }

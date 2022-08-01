@@ -20,6 +20,13 @@ namespace Keepr.Services
 
     internal VaultKeep Create(VaultKeep vaultKeepData)
     {
+      VaultKeep exists = _vaultkeeprepo.CheckForExists(vaultKeepData);
+
+      if (exists != null)
+      {
+
+        return exists;
+      }
       return _vaultkeeprepo.Create(vaultKeepData);
     }
 
