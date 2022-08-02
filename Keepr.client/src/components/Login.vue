@@ -7,14 +7,11 @@
     >
       Login
     </button>
-
-    <div class="dropdown my-2 my-lg-0" v-else>
-      <div
-        class="dropdown-toggle selectable"
-        data-bs-toggle="dropdown"
-        aria-expanded="false"
-        id="authDropdown"
-      >
+    <router-link
+      :to="{ name: 'Account' }"
+      class="btn text-success lighten-30 selectable"
+    >
+      <div class="bg-black rounded p-2">
         <div v-if="account.picture">
           <img
             :src="account.picture"
@@ -22,27 +19,10 @@
             height="40"
             class="rounded"
           />
-          <span class="mx-3 text-success lighten-30">{{ account.name }}</span>
+          <span class="mx-3 text-white lighten-30">{{ account.name }}</span>
         </div>
       </div>
-      <div
-        class="dropdown-menu p-0 list-group w-100"
-        aria-labelledby="authDropdown"
-      >
-        <router-link :to="{ name: 'Account' }">
-          <div class="list-group-item list-group-item-action hoverable">
-            Manage Account
-          </div>
-        </router-link>
-        <div
-          class="list-group-item list-group-item-action hoverable text-danger"
-          @click="logout"
-        >
-          <i class="mdi mdi-logout"></i>
-          logout
-        </div>
-      </div>
-    </div>
+    </router-link>
   </span>
 </template>
 
@@ -80,5 +60,8 @@ export default {
 }
 .hoverable {
   cursor: pointer;
+}
+.bg-black {
+  background-color: rgba(0, 0, 0, 0.498);
 }
 </style>
