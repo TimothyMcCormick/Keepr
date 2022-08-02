@@ -16,7 +16,7 @@ namespace Keepr.Services
 
     private Vault AllowAccess(int id, string userId)
     {
-      Vault original = Get(id);
+      Vault original = Get(id, userId);
       if (original.IsPrivate == true || original.CreatorId != userId)
       {
         throw new Exception("Access Denied");
@@ -31,12 +31,16 @@ namespace Keepr.Services
       return _vaultrepo.Create(vaultData);
     }
 
-    internal Vault Get(int id)
+    internal Vault Get(int id, string userId)
     {
       Vault found = _vaultrepo.Get(id);
       if (found == null)
       {
         throw new Exception("Invalid Id");
+      }
+      if (found.IsPrivate == true && found.CreatorId != userId)
+      {
+        throw new Exception("Access denied");
       }
 
 
@@ -61,7 +65,7 @@ namespace Keepr.Services
 
     internal void Delete(int id, string userId)
     {
-      Vault foundVault = Get(id);
+      Vault foundVault = Get(id, userId);
       if (foundVault.CreatorId != userId)
       {
         throw new Exception("You cannot delete this");

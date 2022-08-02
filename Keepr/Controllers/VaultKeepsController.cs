@@ -29,7 +29,8 @@ namespace Keepr.Controllers
       {
         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
         vaultKeepData.CreatorId = userInfo.Id;
-        return Ok(_vaultkeepserv.Create(vaultKeepData));
+        VaultKeep newVaultKeep = _vaultkeepserv.Create(vaultKeepData, userInfo?.Id);
+        return Ok(newVaultKeep);
       }
       catch (System.Exception e)
       {
@@ -44,7 +45,7 @@ namespace Keepr.Controllers
       try
       {
         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-        _vaultkeepserv.Delete(id);
+        _vaultkeepserv.Delete(id, userInfo.Id);
         return Ok("Deleted");
       }
       catch (System.Exception e)

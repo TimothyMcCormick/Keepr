@@ -1,21 +1,17 @@
 <template>
-  <div
-    class="
-      home
-      flex-grow-1
-      d-flex
-      flex-column
-      align-items-center
-      justify-content-center
-    "
-  ></div>
+  <div class="container">
+    <div class="masonry-frame">
+      <Keep v-for="k in keeps" :key="k.id" :keep="k" />
+    </div>
+  </div>
 </template>
 
 <script>
-import { onMounted } from "@vue/runtime-core"
+import { computed, onMounted } from "@vue/runtime-core"
 import Pop from "../utils/Pop"
 import { logger } from "../utils/Logger"
 import { keepsService } from "../services/KeepsService"
+import { AppState } from "../AppState"
 export default {
   name: 'Home',
   setup() {
@@ -28,28 +24,17 @@ export default {
       }
     })
     return {
-
+      keeps: computed(() => AppState.keeps)
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
-.home {
-  display: grid;
-  height: 80vh;
-  place-content: center;
-  text-align: center;
-  user-select: none;
-  .home-card {
-    width: 50vw;
-    > img {
-      height: 200px;
-      max-width: 200px;
-      width: 100%;
-      object-fit: contain;
-      object-position: center;
-    }
+.masonry-frame {
+  columns: 4;
+  div {
+    break-inside: avoid;
   }
 }
 </style>

@@ -10,31 +10,33 @@ namespace Keepr.Services
     private readonly VaultKeepsRepository _vaultkeeprepo;
     private readonly VaultsRepository _vaultrepo;
     private readonly VaultsService _vaultserv;
+    private readonly KeepsService _keepserv;
 
-    public VaultKeepsService(VaultKeepsRepository vaultkeeprepo, VaultsRepository vaultrepo, VaultsService vaultserv)
+    public VaultKeepsService(VaultKeepsRepository vaultkeeprepo, VaultsRepository vaultrepo, VaultsService vaultserv, KeepsService keepserv)
     {
       _vaultkeeprepo = vaultkeeprepo;
       _vaultrepo = vaultrepo;
       _vaultserv = vaultserv;
+      _keepserv = keepserv;
     }
 
-    internal VaultKeep Create(VaultKeep vaultKeepData)
+    internal VaultKeep Create(VaultKeep vaultKeepData, string userId)
     {
-      VaultKeep exists = _vaultkeeprepo.CheckForExists(vaultKeepData);
-
-      if (exists != null)
+      Vault foundVault = _vaultserv.Get(vaultKeepData.VaultId, userId);
+      Keep foundKeep = _keepserv.Get(vaultKeepData.KeepId);
+      if (foundVault.CreatorId != userId)
       {
-
-        return exists;
+        throw new Exception("Access denied");
       }
+      foundKeep.Kept++;
       return _vaultkeeprepo.Create(vaultKeepData);
     }
 
-    internal List<VaultKeepViewModel> Get(int id)
+    internal List<VaultKeepViewModel> Get(int id, string userId)
     {
-      Vault vault = _vaultserv.Get(id);
+      Vault vault = _vaultserv.Get(id, userId);
       List<VaultKeepViewModel> vaultKeeps = _vaultkeeprepo.GetByVaultId(id);
-      if (vault.IsPrivate == true)
+      if (vault.IsPrivate == true && vault.CreatorId != userId)
       {
         throw new Exception("You cannot access this vaults keeps");
       }
@@ -58,9 +60,14 @@ namespace Keepr.Services
       return found;
     }
 
-    internal void Delete(int id)
+    internal void Delete(int id, string userId)
     {
-      GetById(id);
+      VaultKeep found = GetById(id);
+      if (found.CreatorId != userId)
+      {
+        throw new Exception("You cannot delete this");
+      }
+
       _vaultkeeprepo.Delete(id);
     }
   }

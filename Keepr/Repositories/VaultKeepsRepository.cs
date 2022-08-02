@@ -28,11 +28,11 @@ namespace Keepr.Repositories
       return vaultKeepData;
     }
 
-    internal VaultKeep CheckForExists(VaultKeep vaultKeepData)
-    {
-      string sql = "SELECT * FROM vaultkeeps WHERE vaultId = @VaultId AND keepId = @KeepId LIMIT 1";
-      return _db.QueryFirstOrDefault<VaultKeep>(sql, vaultKeepData);
-    }
+    // internal VaultKeep CheckForExists(VaultKeep vaultKeepData)
+    // {
+    //   string sql = "SELECT * FROM vaultkeeps WHERE vaultId = @VaultId AND keepId = @KeepId LIMIT 1";
+    //   return _db.QueryFirstOrDefault<VaultKeep>(sql, vaultKeepData);
+    // }
 
     internal VaultKeep GetById(int id)
     {
