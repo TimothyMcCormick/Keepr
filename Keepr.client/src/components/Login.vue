@@ -11,7 +11,7 @@
       :to="{ name: 'Account' }"
       class="btn text-success lighten-30 selectable"
     >
-      <div class="bg-black rounded p-2">
+      <div class="bg-login rounded">
         <div v-if="account.picture">
           <img
             :src="account.picture"
@@ -61,7 +61,7 @@ export default {
 .hoverable {
   cursor: pointer;
 }
-.bg-black {
-  background-color: rgba(0, 0, 0, 0.498);
+.bg-login {
+  background-color: rgb(96, 96, 96);
 }
 </style>

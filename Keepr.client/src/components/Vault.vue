@@ -7,7 +7,7 @@
       vaults-card
       bg-img
       rounded
-      elevation-2
+      elevation-4
       d-flex
       align-items-end
       selectable

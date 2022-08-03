@@ -2,24 +2,18 @@
   <div
     data-bs-target="#keep-modal"
     data-bs-toggle="modal"
-    class="
-      m-3
-      p-2
-      img-fluid
-      keeps-card
-      bg-img
-      rounded
-      elevation-2
-      d-flex
-      align-items-end
-      selectable
-    "
+    class="m-3 p-2 bg-img rounded elevation-4 d-flex align-items-end selectable"
     @click="setActive"
     :style="`background-image: url(${keep.img})`"
   >
-    <h3 class="text-light">
-      <b>{{ keep.name }}</b>
-    </h3>
+    <div class="row">
+      <span>
+        <h3 class="text-light">
+          <b>{{ keep.name }}</b>
+        </h3>
+        <img class="small-profile-img" :src="keep.creator?.picture" alt="" />
+      </span>
+    </div>
   </div>
 </template>
 
@@ -53,11 +47,15 @@ export default {
 
 <style lang="scss" scoped>
 .bg-img {
-  background-size: cover;
   background-position: center;
+  background-size: cover;
+  width: 100%;
+  height: 150px;
 }
-.keeps-card {
-  height: 20vh;
-  width: 18rem;
+.small-profile-img {
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+  border-radius: 50em;
 }
 </style>

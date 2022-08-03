@@ -16,6 +16,12 @@ class AccountService {
     logger.log(res.data)
     AppState.myVaults = res.data
   }
+  async getMyKeeps() {
+    const res = await api.get('api/keeps')
+    logger.log(res.data)
+    res.data.filter(k => k.creatorId != AppState.account.id)
+    AppState.myKeeps = res.data
+  }
 }
 
 export const accountService = new AccountService()

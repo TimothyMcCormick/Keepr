@@ -1,13 +1,15 @@
 <template>
   <div class="container">
     <div class="masonry-frame">
-      <Keep v-for="k in keeps" :key="k.id" :keep="k" />
+      <div v-for="k in keeps" :key="k.id">
+        <Keep :keep="k" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { computed, onMounted } from "@vue/runtime-core"
+import { computed, onMounted, watchEffect } from "@vue/runtime-core"
 import Pop from "../utils/Pop"
 import { logger } from "../utils/Logger"
 import { keepsService } from "../services/KeepsService"
@@ -33,6 +35,7 @@ export default {
 <style scoped lang="scss">
 .masonry-frame {
   columns: 4;
+
   div {
     break-inside: avoid;
   }
