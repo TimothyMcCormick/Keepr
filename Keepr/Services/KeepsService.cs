@@ -64,5 +64,10 @@ namespace Keepr.Services
     {
       return _keeprepo.GetKeepsByCreatorId(id);
     }
+
+    internal object GetAccountKeeps(string userId)
+    {
+      return _keeprepo.GetAccountVaults(userId);
+    }
   }
 }

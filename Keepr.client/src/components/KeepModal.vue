@@ -38,28 +38,30 @@
                   ></i
                 ></span>
               </a> -->
+              <h2 class="p-2 text-center">Keep {{ keep.name }}</h2>
               <div class="row description">
-                <h2 class="p-2 text-center">Keep {{ keep.name }}</h2>
-
                 <p>
                   {{ keep.description }}
                 </p>
+                <div class="border-bottom"></div>
               </div>
             </div>
             <div class="row">
               <span class="d-flex align-items-center justify-content-between">
-                <select
-                  class="selectable"
-                  name="vaults"
-                  id="vaults"
-                  @change="setActiveVault"
-                  v-model="activeVaultId"
-                >
-                  <option value="select">ADD TO VAULT</option>
-                  <option v-for="v in vaults" :key="v.id" :value="v.id">
-                    {{ v.name }}
-                  </option>
-                </select>
+                <div class="mb-3">
+                  <select
+                    class="selectable"
+                    name="vaults"
+                    id="vaults"
+                    @change="createVaultKeep"
+                    v-model="vaultId"
+                  >
+                    <option hidden>ADD TO VAULT</option>
+                    <option v-for="v in vaults" :key="v.id" :value="v.id">
+                      {{ v.name }}
+                    </option>
+                  </select>
+                </div>
                 <i
                   class="button mdi mdi-delete f-24 selectable"
                   @click="deleteKeep()"
@@ -67,15 +69,15 @@
 
                 <div class="rounded p-2">
                   <div>
-                    <span class="mx-3 text-dark lighten-30">
-                      <b>{{ keep.creator?.name }}</b></span
-                    >
                     <img
                       :src="account.picture"
                       alt="account photo"
                       height="40"
                       class="rounded"
                     />
+                    <span class="mx-3 text-dark lighten-30">
+                      <b>{{ keep.creator?.name }}</b></span
+                    >
                   </div>
                 </div>
               </span>
@@ -95,17 +97,27 @@ import Pop from "../utils/Pop"
 import { logger } from "../utils/Logger"
 import { keepsService } from "../services/KeepsService"
 import { vaultKeepsService } from "../services/VaultKeepsService"
-import { useRoute } from "vue-router"
+import { useRoute, useRouter } from "vue-router"
 import { Modal } from "bootstrap"
 export default {
 
   setup() {
-    const activeVaultId = ref(0)
+    const router = useRouter()
+    const vaultId = ref(0)
     return {
-      activeVaultId,
-      async setActiveVault() {
+      vaultId,
+      vaults: computed(() => AppState.myVaults),
+      async createVaultKeep() {
         try {
-          await vaultKeepsService.getByVaultId(activeVaultId.value)
+          const newVaultKeep = {
+            vaultId: vaultId.value,
+            keepId: this.keep.id
+          }
+          Modal.getOrCreateInstance(document.getElementById('keep-modal')).hide()
+          await vaultKeepsService.createVaultKeep(newVaultKeep)
+          router.push({ name: "Vault", params: { id: vaultId.value } })
+          Pop.toast('Added to Vault!', 'success')
+          vaultId.value = 0
         } catch (error) {
           logger.error(error)
           Pop.toast(error.message, 'error')
@@ -122,7 +134,7 @@ export default {
       },
       keep: computed(() => AppState.activeKeep),
       account: computed(() => AppState.account),
-      vaults: computed(() => AppState.myVaults)
+
     }
   }
 }
@@ -133,6 +145,10 @@ export default {
 .keep-img {
   width: 100%;
   object-fit: cover;
+  height: 60vh;
+}
+.description {
+  height: 40vh;
 }
 select {
   margin-bottom: 10px;

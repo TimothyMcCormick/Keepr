@@ -1,12 +1,13 @@
-const { logger } = require("../utils/Logger")
-const { api } = require("./AxiosService")
+import { AppState } from "../AppState"
+import { logger } from "../utils/Logger"
+import { api } from "./AxiosService"
 
 class VaultKeepsService {
-  async getByVaultId(id) {
-    const res = await api.get(`api/vaults/${id}/keeps`)
+  async createVaultKeep(newVK) {
+    const res = await api.post('api/vaultkeeps', newVK)
     logger.log(res.data)
   }
 }
 
 
-const vaultKeepsService = new VaultKeepsService()
+export const vaultKeepsService = new VaultKeepsService()

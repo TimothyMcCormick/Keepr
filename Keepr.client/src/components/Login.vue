@@ -11,7 +11,7 @@
       :to="{ name: 'Account' }"
       class="btn text-success lighten-30 selectable"
     >
-      <div class="bg-login rounded">
+      <div class="bg-login rounded elevation-4">
         <div v-if="account.picture">
           <img
             :src="account.picture"

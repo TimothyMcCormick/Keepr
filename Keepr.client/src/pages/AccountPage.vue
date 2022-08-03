@@ -1,11 +1,13 @@
 <template>
-  <div class="row m-0">
-    <div class="col-md-3 d-flex justify-content-center">
+  <div class="row m-0 p-4">
+    <div class="col-md-3 p-0 d-flex justify-content-center">
       <img class="rounded" :src="account.picture" alt="" />
     </div>
-    <div class="col-md-9 d-flex flex-column justify-content-center">
-      <h1>{{}}</h1>
-      <p>{{ account.email }}</p>
+
+    <div class="col-md-9 d-flex flex-column">
+      <h1 class="name-font-size">{{ account.name }}</h1>
+      <h5>Vaults: {{ myVaults.length }}</h5>
+      <h5>Keeps: {{ keeps.length }}</h5>
     </div>
   </div>
   <div class="container">
@@ -74,5 +76,8 @@ img {
   div {
     break-inside: avoid;
   }
+}
+.name-font-size {
+  font-size: 60px;
 }
 </style>

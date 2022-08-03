@@ -23,13 +23,13 @@ namespace Keepr.Services
     internal VaultKeep Create(VaultKeep vaultKeepData, string userId)
     {
       Vault foundVault = _vaultserv.Get(vaultKeepData.VaultId, userId);
-      Keep foundKeep = _keepserv.Get(vaultKeepData.KeepId);
+
       VaultKeep newVaultKeep = _vaultkeeprepo.Create(vaultKeepData);
       if (foundVault.CreatorId != userId)
       {
         throw new Exception("Access denied");
       }
-      foundKeep.Kept++;
+
       return newVaultKeep;
     }
 
