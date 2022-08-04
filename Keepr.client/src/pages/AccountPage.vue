@@ -5,7 +5,7 @@
       data-bs-toggle="modal"
       data-bs-target="#edit-account-modal"
     >
-      <button class="btn btn-outline-warning">Edit Account</button>
+      <button class="btn btn-warning"><b>Edit Account</b></button>
     </div>
     <div class="col-md-3 p-0 d-flex justify-content-center">
       <img class="rounded" :src="account.picture" alt="" />
