@@ -49,7 +49,7 @@ export default {
   name: 'Account',
   setup() {
     // route = useRoute()
-    watchEffect(async () => {
+    onMounted(async () => {
       try {
         await accountService.getMyVaults()
         await accountService.getMyKeeps()

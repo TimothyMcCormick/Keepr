@@ -123,14 +123,21 @@ namespace Keepr.Repositories
 
 
 
-    internal object GetAccountVaults(string userId)
+    internal List<Keep> GetAccountKeeps(string userId)
     {
       string sql = @"
-      SELECT *
-      FROM keeps
-      WHERE creatorId = @userId
+      SELECT 
+      a.*,
+      k.*
+      FROM keeps k
+      JOIN accounts a ON a.id = k.creatorId
+      WHERE k.creatorId = @userId
       ";
-      return _db.Query<Vault>(sql, new { userId }).ToList();
+      return _db.Query<Profile, Keep, Keep>(sql, (acct, keeps) =>
+      {
+        keeps.Creator = acct;
+        return keeps;
+      }, new { userId }).ToList();
     }
 
     internal void Edit(Keep original)

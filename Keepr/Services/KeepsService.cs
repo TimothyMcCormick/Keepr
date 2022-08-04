@@ -80,7 +80,7 @@ namespace Keepr.Services
 
     internal object GetAccountKeeps(string userId)
     {
-      return _keeprepo.GetAccountVaults(userId);
+      return _keeprepo.GetAccountKeeps(userId);
     }
   }
 }

@@ -154,6 +154,7 @@ export default {
         try {
           Modal.getOrCreateInstance(document.getElementById('keep-modal')).hide()
           await keepsService.deleteKeep(this.keep.id)
+          Pop.toast('Deleted Keep', 'error')
         } catch (error) {
           logger.error(error)
           Pop.toast(error.message, 'error')

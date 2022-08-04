@@ -9,7 +9,7 @@
         <b>{{ keep.name }}</b>
       </h3>
     </div>
-    <div class="bottom-right" v-if="keep.creatorId != account.id">
+    <div class="bottom-right">
       <img
         class="small-profile-img"
         :src="keep.creator?.picture"

@@ -75,6 +75,7 @@ export default {
         try {
           Modal.getOrCreateInstance(document.getElementById('create-keep-modal')).hide()
           await keepsService.createKeep(editable.value)
+          Pop.toast('Created Keep!', 'success')
         } catch (error) {
           logger.error(error)
           Pop.toast(error.message, 'error')
