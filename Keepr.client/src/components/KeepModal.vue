@@ -82,7 +82,7 @@
                     @change="createVaultKeep"
                     v-model="vaultId"
                   >
-                    <option hidden class="text-primary">ADD TO VAULT</option>
+                    <option value="0" class="text-primary">ADD TO VAULT</option>
                     <option v-for="v in vaults" :key="v.id" :value="v.id">
                       {{ v.name }}
                     </option>

@@ -32,7 +32,38 @@ namespace Keepr.Repositories
       return keepData;
     }
 
+    internal void incViews(Keep found)
+    {
+      string sql = @"
+      UPDATE keeps
+        SET
+        views = @Views
+      WHERE id = @Id;
+      ";
+      _db.Execute(sql, found);
+    }
 
+    internal void incKept(Keep foundKeep)
+    {
+      string sql = @"
+      UPDATE keeps
+        SET
+        kept = @Kept
+      WHERE id = @Id;
+      ";
+      _db.Execute(sql, foundKeep);
+    }
+
+    internal void decKept(Keep foundKeep)
+    {
+      string sql = @"
+      UPDATE keeps
+        SET
+        kept = @Kept
+      WHERE id = @Id;
+      ";
+      _db.Execute(sql, foundKeep);
+    }
 
     internal List<Keep> Get()
     {
@@ -89,6 +120,8 @@ namespace Keepr.Repositories
         return keeps;
       }, new { creatorId }).ToList();
     }
+
+
 
     internal object GetAccountVaults(string userId)
     {

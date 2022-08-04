@@ -32,7 +32,15 @@ namespace Keepr.Services
       {
         throw new Exception("Invalid Id");
       }
+      found.Views++;
+      return incViews(found);
 
+    }
+
+    private Keep incViews(Keep found)
+    {
+      // found.Views++;
+      _keeprepo.incViews(found);
       return found;
     }
 
