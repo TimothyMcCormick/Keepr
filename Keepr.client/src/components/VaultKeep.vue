@@ -1,11 +1,11 @@
 <template>
   <div
     class="mb-3 rounded img-container elevation-4 selectable"
-    @click="setActive"
+    @click="setActiveVaultKeep"
   >
     <img class="rounded" :src="keep.img" alt="" style="width: 100%" />
     <div class="bottom-left">
-      <h3 class="shadow-1">
+      <h3>
         <b>{{ keep.name }}</b>
       </h3>
     </div>
@@ -29,6 +29,7 @@ import Pop from "../utils/Pop"
 import { AppState } from "../AppState"
 import { useRouter } from "vue-router"
 import { Modal } from "bootstrap"
+import { vaultKeepsService } from "../services/VaultKeepsService"
 export default {
   props: {
     keep: {
@@ -40,10 +41,10 @@ export default {
     const router = useRouter()
     return {
       account: computed(() => AppState.account),
-      async setActive() {
+      async setActiveVaultKeep() {
         try {
-          Modal.getOrCreateInstance(document.getElementById('keep-modal')).show()
-          await keepsService.setActiveKeep(props.keep)
+          Modal.getOrCreateInstance(document.getElementById('vault-keep-modal')).show()
+          await vaultKeepsService.setActiveVaultKeep(props.keep)
           // const viewCount = props.keep.views++
           // await keepsService.editKeepViews(props.keep.id, viewCount)
         } catch (error) {

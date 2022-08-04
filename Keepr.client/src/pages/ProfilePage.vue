@@ -80,6 +80,20 @@ img {
   }
 }
 .name-font-size {
-  font-size: 60px;
+  font-size: 52px;
+}
+@media all and (max-width: 768px) {
+  .masonry-frame {
+    columns: 2;
+
+    div {
+      break-inside: avoid;
+    }
+  }
+}
+@media all and (max-width: 768px) {
+  .name-font-size {
+    font-size: 36px;
+  }
 }
 </style>

@@ -32,6 +32,8 @@ namespace Keepr.Repositories
       return keepData;
     }
 
+
+
     internal List<Keep> Get()
     {
       string sql = @"
@@ -43,6 +45,7 @@ namespace Keepr.Repositories
       ";
       return _db.Query<Profile, Keep, Keep>(sql, (acct, keep) =>
       {
+
         keep.Creator = acct;
         return keep;
       }).ToList();
@@ -58,14 +61,18 @@ namespace Keepr.Repositories
       k.*
       FROM keeps k
       JOIN accounts a ON a.id = k.creatorId
+      
       WHERE k.id = @id;
       ";
       return _db.Query<Profile, Keep, Keep>(sql, (acct, keep) =>
       {
         keep.Creator = acct;
+
         return keep;
       }, new { id }).FirstOrDefault();
     }
+
+
 
     internal List<Keep> GetKeepsByCreatorId(string creatorId)
     {
@@ -105,6 +112,8 @@ namespace Keepr.Repositories
       ";
       _db.Execute(sql, original);
     }
+
+
 
     internal void Delete(int id)
     {

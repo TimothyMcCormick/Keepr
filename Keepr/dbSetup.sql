@@ -15,7 +15,8 @@ CREATE TABLE
         updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
         name VARCHAR(255) NOT NULL COMMENT 'Vault Name',
         description TEXT NOT NULL,
-        isPrivate TINYINT NOT NULL DEFAULT 0,
+        img VARCHAR(255) NOT NULL DEFAULT 'https://thiscatdoesnotexist.com',
+        isPrivate TINYINT DEFAULT 0,
         creatorId VARCHAR(255) NOT NULL,
         FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
     ) default charset utf8 COMMENT '';

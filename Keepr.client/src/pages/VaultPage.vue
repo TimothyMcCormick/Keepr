@@ -7,7 +7,7 @@
         </h1>
         <h5 class="ms-1">Keeps: {{ myKeeps.length }}</h5>
       </div>
-      <div>
+      <div v-if="activeVault.creatorId == account.id">
         <button class="btn btn-outline-danger m-4" @click="deleteVault">
           DELETE VAULT
         </button>
@@ -16,7 +16,7 @@
     <div></div>
     <div class="masonry-frame mt-3 ms-2">
       <div v-for="mk in myKeeps" :key="mk.id">
-        <Keep :keep="mk" />
+        <VaultKeep :keep="mk" />
       </div>
     </div>
   </div>
@@ -24,7 +24,7 @@
 
 
 <script>
-import { computed, onMounted } from "@vue/runtime-core"
+import { computed, onMounted, watch, watchEffect } from "@vue/runtime-core"
 import { logger } from "../utils/Logger"
 import Pop from "../utils/Pop"
 import { vaultsService } from "../services/VaultsService"
@@ -37,15 +37,18 @@ export default {
 
     onMounted(async () => {
       try {
-        await vaultsService.getVaultKeeps(route.params.id)
+
         await vaultsService.getVaultById(route.params.id)
+        await vaultsService.getVaultKeeps(route.params.id)
+
       } catch (error) {
+        router.push({ name: 'Home' })
         logger.error(error)
-        Pop.toast(error.message, 'error')
+        Pop.toast('Private Vault', 'error')
       }
     })
     return {
-
+      account: computed(() => AppState.account),
       myKeeps: computed(() => AppState.myVaultKeeps),
       activeVault: computed(() => AppState.activeVault),
       async deleteVault() {
@@ -70,6 +73,15 @@ export default {
 
   div {
     break-inside: avoid;
+  }
+}
+@media all and (max-width: 768px) {
+  .masonry-frame {
+    columns: 2;
+
+    div {
+      break-inside: avoid;
+    }
   }
 }
 </style>

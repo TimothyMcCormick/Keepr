@@ -1,5 +1,5 @@
 <template>
-  <Modal id="keep-modal">
+  <Modal id="vault-keep-modal">
     <template #modal-body>
       <div class="container">
         <div class="row">
@@ -69,30 +69,19 @@
                 <p>
                   {{ keep.description }}
                 </p>
-                <div class="border-bottom"></div>
               </div>
             </div>
             <div class="row">
               <span class="d-flex align-items-center justify-content-between">
                 <div class="mb-3">
-                  <select
-                    class="selectable"
-                    name="vaults"
-                    id="vaults"
-                    @change="createVaultKeep"
-                    v-model="vaultId"
+                  <button
+                    class="remove-button"
+                    @click="deleteVaultKeep"
+                    v-if="keep.creatorId == account.id"
                   >
-                    <option hidden class="text-primary">ADD TO VAULT</option>
-                    <option v-for="v in vaults" :key="v.id" :value="v.id">
-                      {{ v.name }}
-                    </option>
-                  </select>
+                    REMOVE FROM VAULT
+                  </button>
                 </div>
-                <i
-                  v-if="keep.creatorId == account.id"
-                  class="button mdi mdi-delete f-24 selectable"
-                  @click="deleteKeep()"
-                ></i>
 
                 <div class="rounded p-2">
                   <div>
@@ -140,7 +129,7 @@ export default {
             vaultId: vaultId.value,
             keepId: this.keep.id
           }
-          Modal.getOrCreateInstance(document.getElementById('keep-modal')).hide()
+          Modal.getOrCreateInstance(document.getElementById('vault-keep-modal')).hide()
           await vaultKeepsService.createVaultKeep(newVaultKeep)
           router.push({ name: "Vault", params: { id: vaultId.value } })
           Pop.toast('Added to Vault!', 'success')
@@ -150,16 +139,16 @@ export default {
           Pop.toast(error.message, 'error')
         }
       },
-      async deleteKeep() {
+      async deleteVaultKeep() {
         try {
-          Modal.getOrCreateInstance(document.getElementById('keep-modal')).hide()
-          await keepsService.deleteKeep(this.keep.id)
+          Modal.getOrCreateInstance(document.getElementById('vault-keep-modal')).hide()
+          await vaultKeepsService.deleteVaultKeep(this.keep.vaultKeepId)
         } catch (error) {
           logger.error(error)
           Pop.toast(error.message, 'error')
         }
       },
-      keep: computed(() => AppState.activeKeep),
+      keep: computed(() => AppState.activeVaultKeep),
       account: computed(() => AppState.account),
 
     }
@@ -177,14 +166,17 @@ export default {
 .description {
   height: 40vh;
 }
-select {
+.top-row {
+  height: 5vh;
+}
+.remove-button {
   margin-bottom: 10px;
   margin-top: 10px;
   font-family: cursive, sans-serif;
   outline: 3px;
   background: #ffffff;
-  color: #34ffeb;
-  border: 3px solid #34ffeb;
+  color: #fd0000;
+  border: 3px solid #fd0000;
   padding: 4px;
   border-radius: 9px;
 }

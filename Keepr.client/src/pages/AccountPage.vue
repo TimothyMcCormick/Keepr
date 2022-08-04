@@ -5,7 +5,7 @@
     </div>
 
     <div class="col-md-9 d-flex flex-column">
-      <h1 class="name-font-size">{{ account.name }}</h1>
+      <h1 class="name-font-size mt-2">{{ account.name }}</h1>
       <h5>Vaults: {{ myVaults.length }}</h5>
       <h5>Keeps: {{ keeps.length }}</h5>
     </div>
@@ -78,6 +78,20 @@ img {
   }
 }
 .name-font-size {
-  font-size: 60px;
+  font-size: 52px;
+}
+@media all and (max-width: 768px) {
+  .masonry-frame {
+    columns: 2;
+
+    div {
+      break-inside: avoid;
+    }
+  }
+}
+@media all and (max-width: 768px) {
+  .name-font-size {
+    font-size: 36px;
+  }
 }
 </style>

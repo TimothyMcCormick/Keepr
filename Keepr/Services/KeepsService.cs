@@ -27,13 +27,16 @@ namespace Keepr.Services
     internal Keep Get(int id)
     {
       Keep found = _keeprepo.Get(id);
+      // _keeprepo.incViews(found);
       if (found == null)
       {
         throw new Exception("Invalid Id");
       }
-      found.Views++;
+
       return found;
     }
+
+
 
     internal Keep Edit(Keep keepData)
     {
@@ -45,6 +48,8 @@ namespace Keepr.Services
       original.Name = keepData.Name ?? original.Name;
       original.Description = keepData.Description ?? original.Description;
       original.Img = keepData.Img ?? original.Img;
+      original.Views = keepData.Views > 0 ? keepData.Views : original.Views;
+
 
       _keeprepo.Edit(original);
       return original;
