@@ -1,6 +1,6 @@
 <template>
   <div
-    class="mb-3 rounded img-container elevation-4 selectable"
+    class="mb-4 ms-2 me-2 rounded img-container elevation-4 selectable"
     @click="setActive"
   >
     <img class="rounded" :src="keep.img" alt="" style="width: 100%" />
