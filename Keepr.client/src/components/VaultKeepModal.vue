@@ -143,6 +143,7 @@ export default {
         try {
           Modal.getOrCreateInstance(document.getElementById('vault-keep-modal')).hide()
           await vaultKeepsService.deleteVaultKeep(this.keep.vaultKeepId)
+          Pop.toast('Deleted From Vault', 'error')
         } catch (error) {
           logger.error(error)
           Pop.toast(error.message, 'error')

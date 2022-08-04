@@ -15,6 +15,10 @@ namespace Keepr.Services
     {
       return _repo.GetById(id);
     }
+    internal Account GetAccountById(string id)
+    {
+      return _repo.GetById(id);
+    }
 
     internal string GetProfileEmailById(string id)
     {
@@ -39,7 +43,15 @@ namespace Keepr.Services
       Account original = GetProfileByEmail(userEmail);
       original.Name = editData.Name.Length > 0 ? editData.Name : original.Name;
       original.Picture = editData.Picture.Length > 0 ? editData.Picture : original.Picture;
-      return _repo.Edit(original);
+      return _repo.EditAccount(original);
+    }
+
+    internal Account EditAccount(Account editData)
+    {
+      Account original = GetAccountById(editData.Id);
+      original.Name = editData.Name ?? original.Name;
+      original.Picture = editData.Picture ?? original.Picture;
+      return _repo.EditAccount(original);
     }
   }
 }

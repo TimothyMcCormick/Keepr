@@ -8,6 +8,7 @@
     <CreateKeepModal />
     <CreateVaultModal />
     <VaultKeepModal />
+    <EditAccountModal />
   </main>
 </template>
 

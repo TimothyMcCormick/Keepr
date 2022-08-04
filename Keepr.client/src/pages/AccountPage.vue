@@ -1,5 +1,12 @@
 <template>
   <div class="row m-0 p-4">
+    <div
+      class="col-md-12 d-flex justify-content-end"
+      data-bs-toggle="modal"
+      data-bs-target="#edit-account-modal"
+    >
+      <button class="btn btn-outline-warning">Edit Account</button>
+    </div>
     <div class="col-md-3 p-0 d-flex justify-content-center">
       <img class="rounded" :src="account.picture" alt="" />
     </div>
