@@ -25,11 +25,21 @@
           <form type="submit" action="">
             <div class="col-md-12">
               <label for="Title">Title</label>
-              <input class="form-control" type="text" v-model="editable.name" />
+              <input
+                class="form-control"
+                type="text"
+                v-model="editable.name"
+                required
+              />
             </div>
             <div class="col-md-12">
               <label for="Img Url">Img Url</label>
-              <input class="form-control" type="text" v-model="editable.img" />
+              <input
+                class="form-control"
+                type="url"
+                v-model="editable.img"
+                required
+              />
             </div>
             <div class="col-md-12">
               <label for="Description">Description</label>

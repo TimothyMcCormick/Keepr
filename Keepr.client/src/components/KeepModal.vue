@@ -107,7 +107,7 @@
                     @click="goToProfile"
                   >
                     <img
-                      :src="account.picture"
+                      :src="keep.creator?.picture"
                       alt="account photo"
                       height="40"
                       class="rounded"

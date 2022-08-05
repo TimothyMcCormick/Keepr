@@ -33,7 +33,8 @@ class VaultsService {
   async deleteVault(vaultId) {
     const res = await api.delete(`api/vaults/${vaultId}`)
     // logger.log(res.data)
-    AppState.vaults.filter(v => v.id != vaultId)
+    AppState.vaults = AppState.vaults.filter(v => v.id != vaultId)
+
   }
 
 }

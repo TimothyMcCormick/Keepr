@@ -14,6 +14,7 @@
     <h1 class="p-4">
       Vaults
       <i
+        v-if="profile.id == account.id"
         title="Create Vault"
         class="mdi mdi-plus text-primary selectable"
         data-bs-toggle="modal"
@@ -28,6 +29,7 @@
     <h1 class="p-4">
       Keeps
       <i
+        v-if="profile.id == account.id"
         title="Create Keep"
         class="mdi mdi-plus text-primary selectable"
         data-bs-toggle="modal"
@@ -63,6 +65,7 @@ export default {
       }
     })
     return {
+      account: computed(() => AppState.account),
       profile: computed(() => AppState.profile),
       profileVaults: computed(() => AppState.profileVaults),
       profileKeeps: computed(() => AppState.profileKeeps)
