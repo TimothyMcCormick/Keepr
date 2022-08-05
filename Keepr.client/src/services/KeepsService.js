@@ -5,13 +5,13 @@ import { api } from "./AxiosService"
 class KeepsService {
   async GetKeeps() {
     const res = await api.get('api/keeps')
-    logger.log(res.data)
+    // logger.log(res.data)
     AppState.keeps = res.data
   }
 
   async setActiveKeep(keep) {
     const res = await api.get(`api/keeps/${keep.id}`)
-    logger.log(res.data)
+    // logger.log(res.data)
     AppState.activeKeep = res.data
 
   }
@@ -31,7 +31,7 @@ class KeepsService {
 
   async deleteKeep(keepId) {
     const res = await api.delete(`api/keeps/${keepId}`)
-    logger.log(res.data)
+    // logger.log(res.data)
     AppState.keeps.filter(k => k.id != keepId)
   }
 }

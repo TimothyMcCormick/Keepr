@@ -13,18 +13,18 @@ class AccountService {
   }
   async getMyVaults() {
     const res = await api.get('/account/vaults')
-    logger.log(res.data)
+    // logger.log(res.data)
     AppState.myVaults = res.data
   }
   async getMyKeeps() {
     const res = await api.get('account/keeps')
-    logger.log(res.data)
+    // logger.log(res.data)
     AppState.myKeeps = res.data
   }
 
   async editAccount(accountData) {
     const res = await api.put('/account', accountData)
-    logger.log(res.data)
+    // logger.log(res.data)
     AppState.account = res.data
   }
 }

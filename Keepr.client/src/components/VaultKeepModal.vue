@@ -3,28 +3,29 @@
     <template #modal-body>
       <div class="container">
         <div class="row">
-          <div class="col-md-6 order-2">
+          <div class="col-md-6 order-1">
             <img
               class="img-fluid keep-img rounded"
               :src="keep.img"
               alt="https://thiscatdoesnotexist.com"
             />
           </div>
-          <div class="col-md-6 order-1 order-md-2">
+          <div class="col-md-6 order-2 order-md-1">
             <div class="ms-4 d-flex flex-column justify-content-center">
               <div class="text-end">
                 <button
+                  title="Close Modal"
                   type="button"
                   class="btn-close p-2"
                   data-bs-dismiss="modal"
                   aria-label="Close"
                 ></button>
               </div>
-              <div class="row justify-content-center">
+              <div class="row justify-content-center hide-view-kept">
                 <div class="col-md-6">
                   <div class="row justify-content-center">
                     <div class="col-md-2 p-0 d-flex justify-content-end">
-                      <i class="mdi mdi-eye f-18 text-primary"></i>
+                      <i class="mdi mdi-eye f-22 text-primary"></i>
                     </div>
                     <div
                       class="
@@ -39,7 +40,7 @@
                     </div>
                     <div class="col-md-2 p-0 d-flex justify-content-end">
                       <i
-                        class="mdi mdi-alpha-k-box-outline f-18 text-primary"
+                        class="mdi mdi-alpha-k-box-outline f-22 text-primary"
                       ></i>
                     </div>
                     <div
@@ -73,7 +74,7 @@
             </div>
             <div class="row">
               <span class="d-flex align-items-center justify-content-between">
-                <div class="mb-3">
+                <div class="d-flex align-items-center">
                   <button
                     class="remove-button"
                     @click="deleteVaultKeep"
@@ -83,8 +84,12 @@
                   </button>
                 </div>
 
-                <div class="rounded p-2">
-                  <div>
+                <div class="rounded p-2 d-flex align-items-center">
+                  <div
+                    :title="`View ${keep.creator?.name}'s Profile`"
+                    class="selectable"
+                    @click="goToProfile"
+                  >
                     <img
                       :src="account.picture"
                       alt="account photo"
@@ -141,13 +146,19 @@ export default {
       },
       async deleteVaultKeep() {
         try {
-          Modal.getOrCreateInstance(document.getElementById('vault-keep-modal')).hide()
-          await vaultKeepsService.deleteVaultKeep(this.keep.vaultKeepId)
-          Pop.toast('Deleted From Vault', 'error')
+          if (await Pop.confirm()) {
+            Modal.getOrCreateInstance(document.getElementById('vault-keep-modal')).hide()
+            await vaultKeepsService.deleteVaultKeep(this.keep.vaultKeepId)
+            Pop.toast('Deleted From Vault', 'error')
+          }
         } catch (error) {
           logger.error(error)
           Pop.toast(error.message, 'error')
         }
+      },
+      goToProfile() {
+        Modal.getOrCreateInstance(document.getElementById('vault-keep-modal')).hide()
+        router.push({ name: "Profile", params: { id: this.keep.creatorId } })
       },
       keep: computed(() => AppState.activeVaultKeep),
       account: computed(() => AppState.account),
@@ -165,7 +176,7 @@ export default {
   height: 60vh;
 }
 .description {
-  height: 40vh;
+  height: 35vh;
 }
 .top-row {
   height: 5vh;
@@ -186,6 +197,12 @@ export default {
     display: none;
   }
 }
+@media all and (max-width: 1000px) {
+  .hide-view-kept {
+    display: none;
+  }
+}
+
 p {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 20px;

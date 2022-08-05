@@ -14,6 +14,7 @@
     <h1 class="p-4">
       Vaults
       <i
+        title="Create Vault"
         class="mdi mdi-plus text-primary selectable"
         data-bs-toggle="modal"
         data-bs-target="#create-vault-modal"
@@ -27,6 +28,7 @@
     <h1 class="p-4">
       Keeps
       <i
+        title="Create Keep"
         class="mdi mdi-plus text-primary selectable"
         data-bs-toggle="modal"
         data-bs-target="#create-keep-modal"

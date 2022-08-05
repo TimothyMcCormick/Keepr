@@ -1,5 +1,6 @@
 <template>
   <div
+    title="View Vault"
     class="
       m-3
       p-2

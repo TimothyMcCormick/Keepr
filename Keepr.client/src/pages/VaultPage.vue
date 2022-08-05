@@ -53,9 +53,11 @@ export default {
       activeVault: computed(() => AppState.activeVault),
       async deleteVault() {
         try {
-          await vaultsService.deleteVault(route.params.id)
-          router.push({ name: "Account" })
-          Pop.toast('Vault Deleted', 'error')
+          if (await Pop.confirm()) {
+            await vaultsService.deleteVault(route.params.id)
+            router.push({ name: "Account" })
+            Pop.toast('Vault Deleted', 'error')
+          }
         } catch (error) {
           logger.error(error)
           Pop.toast(error.message, 'error')

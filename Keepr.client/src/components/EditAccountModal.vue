@@ -71,6 +71,7 @@ export default {
         try {
           Modal.getOrCreateInstance(document.getElementById('edit-account-modal')).hide()
           await accountService.editAccount(editable.value)
+          Pop.toast('Account Updated!')
         } catch (error) {
           logger.error(error)
           Pop.toast(error.message, 'error')

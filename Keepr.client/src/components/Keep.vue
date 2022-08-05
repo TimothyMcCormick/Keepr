@@ -1,6 +1,7 @@
 <template>
   <div
     class="mb-4 ms-2 me-2 rounded img-container elevation-4 selectable"
+    title="View Keep"
     @click="setActive"
   >
     <img class="rounded" :src="keep.img" alt="" style="width: 100%" />
@@ -11,6 +12,7 @@
     </div>
     <div class="bottom-right">
       <img
+        :title="`View ${keep.creator?.name}'s Profile`"
         class="small-profile-img"
         :src="keep.creator?.picture"
         alt=""
