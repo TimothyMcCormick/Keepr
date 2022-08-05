@@ -25,7 +25,10 @@
                 <div class="col-md-6">
                   <div class="row justify-content-center">
                     <div class="col-md-2 p-0 d-flex justify-content-end">
-                      <i class="mdi mdi-eye f-22 text-primary"></i>
+                      <i
+                        class="mdi mdi-eye f-22 text-primary"
+                        title="Views"
+                      ></i>
                     </div>
                     <div
                       class="
@@ -41,6 +44,7 @@
                     <div class="col-md-2 p-0 d-flex justify-content-end">
                       <i
                         class="mdi mdi-alpha-k-box-outline f-22 text-primary"
+                        title="Kept"
                       ></i>
                     </div>
                     <div
